@@ -58,3 +58,9 @@ class Quaternion:
         """Евклидова норма кватерниона"""
         # hypot - евклидова норма с любым числом аргументов
         return math.hypot(self.w, self.x, self.y, self.z)
+
+    def rotate_vector(self, vector: tuple[float, float, float] ) -> tuple[float, float, float]:
+        """Повернуть 3D-вектор по формуле q * (0, vx, vy, vz) * q^-1"""
+        x, y, z = vector
+        rotated = self * Quaternion(0, x, y, z) * self.inverse()
+        return rotated.x, rotated.y, rotated.z
